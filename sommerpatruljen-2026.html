@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sommerpatruljen 2026 — Driftig Eiendomsservice AS</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #005AA7;
+      --blue-dark: #004a8a;
+      --blue-light: #E6F1FB;
+      --blue-text: #0C447C;
+      --yellow: #FFD166;
+      --yellow-text: #412402;
+      --red: #A32D2D;
+      --gray-bg: #F5F4F0;
+      --gray-border: #DDDBD3;
+      --gray-muted: #6B6A66;
+      --white: #ffffff;
+      --text: #1A1A18;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .page-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      background: var(--blue);
+      border-radius: 16px 16px 0 0;
+      padding: 2rem 2rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      bottom: -20px; left: 60px;
+      width: 100px; height: 100px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+
+    .sun {
+      width: 40px; height: 40px;
+      background: var(--yellow);
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header .subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      position: relative;
+      z-index: 1;
+    }
+
+    .deadline-chip {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--yellow-text);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Body */
+    .form-body {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      padding: 2rem;
+    }
+
+    .info-box {
+      background: var(--blue-light);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--blue-text);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    .notice-box {
+      background: var(--gray-bg);
+      border-left: 3px solid var(--gray-border);
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--gray-muted);
+      line-height: 1.6;
+      margin-top: 0.75rem;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--gray-muted);
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--gray-border);
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .field-row.full { grid-template-columns: 1fr; }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 13px;
+      color: var(--gray-muted);
+    }
+
+    .required { color: var(--red); }
+
+    input, select, textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--gray-bg);
+      border: 1px solid var(--gray-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6A66' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0,90,167,0.12);
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+      line-height: 1.6;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 0.5rem;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text);
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .checkbox-row input[type=checkbox] {
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      padding: 0;
+      margin-top: 2px;
+      accent-color: var(--blue);
+      background: var(--gray-bg);
+      cursor: pointer;
+    }
+
+    /* Submit */
+    .submit-wrap {
+      margin-top: 2rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--blue);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .submit-btn:hover { background: var(--blue-dark); }
+    .submit-btn:active { transform: scale(0.99); }
+
+    /* Success message */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .success-msg .check {
+      width: 56px; height: 56px;
+      background: #EAF3DE;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 24px;
+    }
+
+    .success-msg h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .success-msg p {
+      font-size: 14px;
+      color: var(--gray-muted);
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 12px;
+      color: var(--gray-muted);
+    }
+
+    @media (max-width: 520px) {
+      .field-row { grid-template-columns: 1fr; }
+      .form-body { padding: 1.25rem; }
+      .header { padding: 1.5rem 1.25rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+
+    <div class="header">
+      <div class="sun"></div>
+      <h1>Sommerpatruljen 2026</h1>
+      <p class="subtitle">Driftig Eiendomsservice AS — Søknadsskjema for sommerjobb</p>
+      <span class="deadline-chip">Søknadsfrist: 30. april 2026</span>
+    </div>
+
+    <div class="form-body">
+
+      <!-- BYTT UT action-URL med din Formspree-URL -->
+      <form id="soknadsskjema" action="https://formspree.io/f/XXXXXXXX" method="POST">
+
+        <div class="info-box">
+          Du ansettes av <strong>Driftig Eiendomsservice AS</strong> og vil arbeide på eiendommer forvaltet av OBOS Eiendom.
+          Perioden er uke 26–28 (23. juni – 11. juli 2026). Du må kunne jobbe hele perioden og ha fylt 14 år.
+        </div>
+
+        <!-- Personopplysninger -->
+        <div class="section-label">Personopplysninger</div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="fornavn">Fornavn <span class="required">*</span></label>
+            <input type="text" id="fornavn" name="Fornavn" required placeholder="Ola" />
+          </div>
+          <div class="field">
+            <label for="etternavn">Etternavn <span class="required">*</span></label>
+            <input type="text" id="etternavn" name="Etternavn" required placeholder="Nordmann" />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="fodselsdato">Fødselsdato <span class="required">*</span></label>
+            <input type="date" id="fodselsdato" name="Fødselsdato" required />
+          </div>
+          <div class="field">
+            <label for="telefon">Telefonnummer <span class="required">*</span></label>
+            <input type="tel" id="telefon" name="Telefonnummer" required placeholder="400 00 000" />
+          </div>
+        </div>
+
+        <div class="field-row full">
+          <div class="field">
+            <label for="epost">E-postadresse <span class="required">*</span></label>
+            <input type="email" id="epost" name="E-post" required placeholder="ola@example.com" />
+          </div>
+        </div>
+
+        <div class="field-row full">
+          <div class="field">
+            <label for="adresse">Bostedsadresse</label>
+            <input type="text" id="adresse" name="Bostedsadresse" placeholder="Gateveien 1, 0000 Oslo" />
+          </div>
+        </div>
+
+        <div class="notice-box">
+          Fødselsnummer innhentes ikke i søknadsprosessen. Ved eventuell ansettelse vil Driftig Eiendomsservice AS be om dette separat, til bruk for skatt og lønn.
+        </div>
+
+        <!-- Foresatte -->
+        <div class="section-label">Foresatte (dersom du er under 18 år)</div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="foresatt-navn">Foresattes navn</label>
+            <input type="text" id="foresatt-navn" name="Foresattes navn" placeholder="Fullt navn" />
+          </div>
+          <div class="field">
+            <label for="foresatt-telefon">Foresattes telefon</label>
+            <input type="tel" id="foresatt-telefon" name="Foresattes telefonnummer" placeholder="400 00 000" />
+          </div>
+        </div>
+
+        <!-- Kvalifikasjoner -->
+        <div class="section-label">Kvalifikasjoner</div>
+
+        <div class="field-row full">
+          <div class="field">
+            <label for="forerkort">Har du førerkort?</label>
+            <select id="forerkort" name="Førerkort">
+              <option value="">— Velg —</option>
+              <option>Nei</option>
+              <option>Ja, klasse B</option>
+              <option>Ja, annen klasse</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row full">
+          <div class="field">
+            <label for="erfaring">Relevant erfaring (valgfritt)</label>
+            <textarea id="erfaring" name="Relevant erfaring" placeholder="F.eks. tidligere sommerjobber, dugnad, hagearbeid, maling ..."></textarea>
+          </div>
+        </div>
+
+        <!-- Tilgjengelighet -->
+        <div class="section-label">Tilgjengelighet</div>
+
+        <div class="field-row full">
+          <div class="field">
+            <label for="tilgjengelighet">Kan du jobbe hele perioden (23. juni – 11. juli)? <span class="required">*</span></label>
+            <select id="tilgjengelighet" name="Kan jobbe hele perioden" required>
+              <option value="">— Velg —</option>
+              <option>Ja, jeg kan jobbe alle tre ukene</option>
+              <option>Nei, jeg har begrensninger</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Motivasjon -->
+        <div class="section-label">Motivasjon</div>
+
+        <div class="field-row full">
+          <div class="field">
+            <label for="motivasjon">Hvorfor ønsker du å jobbe i Sommerpatruljen? <span class="required">*</span></label>
+            <textarea id="motivasjon" name="Motivasjon" required placeholder="Fortell litt om deg selv og hva du håper å få ut av jobben ..."></textarea>
+          </div>
+        </div>
+
+        <!-- Samtykke -->
+        <div class="section-label">Samtykke</div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-row">
+            <input type="checkbox" name="Samtykke 1" value="Bekreftet" required />
+            Jeg bekrefter at opplysningene jeg har gitt er korrekte
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" name="Samtykke 2" value="Bekreftet" required />
+            Jeg har lest og forstått informasjonen om Sommerpatruljen
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" name="Samtykke 3" value="Bekreftet" required />
+            Jeg samtykker til at Driftig Eiendomsservice AS kan lagre mine opplysninger til bruk i ansettelsesprosessen
+          </label>
+        </div>
+
+        <div class="submit-wrap">
+          <button type="submit" class="submit-btn">Send søknad</button>
+        </div>
+
+      </form>
+
+      <!-- Suksessmelding -->
+      <div class="success-msg" id="success-msg">
+        <div class="check">✓</div>
+        <h2>Søknaden er mottatt!</h2>
+        <p>Takk for din søknad til Sommerpatruljen 2026.<br>Driftig Eiendomsservice AS tar kontakt så snart vi har behandlet den.</p>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      Driftig Eiendomsservice AS &nbsp;·&nbsp; Sommerjobb på OBOS Eiendoms eiendommer &nbsp;·&nbsp; 2026
+    </div>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('soknadsskjema');
+    const successMsg = document.getElementById('success-msg');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('.submit-btn');
+      btn.textContent = 'Sender ...';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.style.display = 'none';
+          successMsg.style.display = 'block';
+        } else {
+          btn.textContent = 'Noe gikk galt — prøv igjen';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Noe gikk galt — prøv igjen';
+        btn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
