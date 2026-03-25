@@ -461,6 +461,17 @@
 
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
+
+      const checkboxes = form.querySelectorAll('input[type=checkbox]');
+      const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+      if (!allChecked) {
+        checkboxes.forEach(cb => {
+          cb.closest('.checkbox-row').style.color = cb.checked ? '' : 'var(--red)';
+        });
+        form.querySelector('.checkbox-group').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
       const btn = form.querySelector('.submit-btn');
       btn.textContent = 'Sender ...';
       btn.disabled = true;
@@ -488,3 +499,4 @@
 
 </body>
 </html>
+
