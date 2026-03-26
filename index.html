@@ -309,7 +309,7 @@
     <div class="form-body">
 
       <!-- BYTT UT action-URL med din Formspree-URL -->
-      <form id="soknadsskjema" action="https://formspree.io/f/xgopwrbg" method="POST">
+      <form id="soknadsskjema" action="https://formspree.io/f/XXXXXXXX" method="POST">
 
         <div class="info-box">
           Du ansettes av <strong>Driftig Eiendomsservice AS</strong> og vil arbeide på eiendommer forvaltet av OBOS Eiendom.
@@ -460,43 +460,21 @@
 
   <script>
     const form = document.getElementById('soknadsskjema');
-    const successMsg = document.getElementById('success-msg');
 
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
+    form.addEventListener('submit', function(e) {
       const checkboxes = form.querySelectorAll('input[type=checkbox]');
       const allChecked = Array.from(checkboxes).every(cb => cb.checked);
       if (!allChecked) {
+        e.preventDefault();
         checkboxes.forEach(cb => {
           cb.closest('.checkbox-row').style.color = cb.checked ? '' : 'var(--red)';
         });
         form.querySelector('.checkbox-group').scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
-
       const btn = form.querySelector('.submit-btn');
       btn.textContent = 'Sender ...';
       btn.disabled = true;
-
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          form.style.display = 'none';
-          successMsg.style.display = 'block';
-        } else {
-          btn.textContent = 'Noe gikk galt — prøv igjen';
-          btn.disabled = false;
-        }
-      } catch {
-        btn.textContent = 'Noe gikk galt — prøv igjen';
-        btn.disabled = false;
-      }
     });
   </script>
 
